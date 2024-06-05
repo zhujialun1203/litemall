@@ -1,5 +1,11 @@
 <template>
-  <div class="tab-cart">
+<div class="backgroud-png">
+    <div>
+        <img src="../../../public/resource/9205bef567620b27bb37f0d1cbb748b.jpg" stalt="二维码" style="height: 150px;">
+    </div>
+</div>
+
+  <!-- <div class="tab-cart">
     <div class="editor_head" v-show="goods.length">
       <van-icon :name="isEditor ? 'success' : 'editor'"/>
       <span @click="isEditor = !isEditor">{{isEditor ? '完成' : '编辑'}}</span>
@@ -39,7 +45,7 @@
     >
       <van-checkbox v-model="checkedAll" @click="setCheckAll" style="padding: 0 10px;">全选</van-checkbox>
     </van-submit-bar>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -216,6 +222,31 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/scss/mixin';
+
+
+.backgroud-png {
+    background-image: url("../../../public/resource/20210722091937_99190.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container img {
+    position: absolute;
+    z-index: 1;
+}
+
+.container img:nth-child(1) {
+    z-index: 0;
+}
+
+.container img:nth-child(2) {
+    z-index: 2;
+}
+
 
 .tab-cart {
   padding-bottom: 50px;

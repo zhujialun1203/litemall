@@ -30,7 +30,7 @@ export default {
           info: ''
         },
         {
-          name: '分类',
+          name: '抢购',
           path: '/items',
           pathName: 'class',
           icon: 'class-full',
@@ -38,7 +38,7 @@ export default {
           info: ''
         },
         {
-          name: '购物车',
+          name: '分享',
           path: '/order',
           pathName: 'cart',
           icon: 'cart-full',

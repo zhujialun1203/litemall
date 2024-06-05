@@ -14,7 +14,7 @@
       </van-swipe-item>
     </van-swipe>
 
-    <div class="goods-channel">
+    <!-- <div class="goods-channel">
       <div class="item"
            @click="changeTabbar(channel)"
            v-for="(channel, index) in shopInfos.channel"
@@ -23,7 +23,7 @@
              background-size="cover" />
         <span>{{channel.name}}</span>
       </div>
-    </div>
+    </div> -->
 
     <van-panel title="优惠券"
                style=" padding-bottom: 10px;">
@@ -49,7 +49,7 @@
       </div>
     </van-panel>
 
-    <van-panel>
+    <!-- <van-panel>
       <van-card :thumb-link="goDetail(grouponGood.id)"
                 v-for="(grouponGood ,index) in shopInfos.grouponList"
                 :key="index"
@@ -80,9 +80,9 @@
           </van-cell>
         </van-cell-group>
       </div>
-    </van-panel>
+    </van-panel> -->
 
-    <van-panel>
+    <!-- <van-panel>
       <van-grid clickable
                 :column-num="2">
         <van-grid-item v-for="(brand ,index) in shopInfos.brandList"
@@ -103,7 +103,7 @@
           </van-cell>
         </van-cell-group>
       </div>
-    </van-panel>
+    </van-panel> -->
 
     <van-panel>
       <van-row gutter>
@@ -118,18 +118,18 @@
           <span style="padding-left: 80px;position: relative;bottom: 10px; color:#ab956d">￥ {{newGood.retailPrice}}</span>
         </van-col>
       </van-row>
-      <div slot='header'>
-        <van-cell-group>
-          <van-cell title="新品首发"
-                    isLink>
-            <router-link to="/items/new"
-                         class="text-desc">更多新品首发</router-link>
-          </van-cell>
-        </van-cell-group>
-      </div>
+        <!-- <div slot='header'>
+          <van-cell-group>
+            <van-cell title="新品首发"
+                      isLink>
+              <router-link to="/items/new"
+                          class="text-desc">更多新品首发</router-link>
+            </van-cell>
+          </van-cell-group>
+        </div> -->
     </van-panel>
 
-    <van-panel>
+    <!-- <van-panel>
       <van-card :thumb-link="goDetail(groupGood.id)"
                 v-for="(groupGood ,index) in shopInfos.hotGoodsList"
                 :key="index"
@@ -139,7 +139,7 @@
                 :price="groupGood.retailPrice +'.00'"
                 :thumb="groupGood.picUrl"
                 @native-click="goDetail(groupGood.id)">
-        <!-- <div slot="footer">添加日期 {{item.addTime}}</div> -->
+        <div slot="footer">添加日期 {{item.addTime}}</div>
       </van-card>
       <div slot='header'>
         <van-cell-group>
@@ -150,9 +150,9 @@
           </van-cell>
         </van-cell-group>
       </div>
-    </van-panel>
+    </van-panel> -->
 
-<van-panel>
+<!-- <van-panel>
       <van-grid clickable
                 :column-num="2">
         <van-grid-item v-for="(topic ,index) in shopInfos.topicList"
@@ -173,7 +173,7 @@
           </van-cell>
         </van-cell-group>
       </div>
-    </van-panel>
+    </van-panel> -->
 
   </div>
 </template>
