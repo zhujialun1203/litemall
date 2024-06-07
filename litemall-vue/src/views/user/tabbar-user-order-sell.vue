@@ -7,28 +7,28 @@
     </van-cell-group>
     <van-row class="order_status">
       <van-col span="6">
-        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/1'})">
+        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/5'})">
           <van-icon name="daifukuan" :info="order.unpaid > 0 ? order.unpaid : ''"/>
         </div>
-        <div>待付款</div>
+        <div>待上架</div>
       </van-col>
       <van-col span="6">
-        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/2'})">
+        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/6'})">
           <van-icon name="daifahuo" :info="order.unship > 0 ? order.unship : ''"/>
         </div>
-        <div>待发货</div>
+        <div>已上架</div>
       </van-col>
       <van-col span="6">
-        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/3'})">
+        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/7'})">
           <van-icon name="wuliu" :info="order.unrecv > 0 ? order.unrecv : ''"/>
         </div>
-        <div>待收货</div>
+        <div>待收款</div>
       </van-col>
       <van-col span="6">
-        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/4'})">
+        <div class="order_status_icon" @click="$router.push({path: '/user/order/list/8'})">
           <van-icon name="shouhouguanli" :info="order.uncomment > 0 ? order.uncomment : ''"/>
         </div>
-        <div>已完成</div>
+        <div>已收款</div>
       </van-col>
     </van-row>
   </div>

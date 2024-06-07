@@ -136,4 +136,11 @@ public class AdminOrderController {
     public Object reply(@RequestBody String body) {
         return adminOrderService.reply(body);
     }
+
+    @RequiresPermissions("admin:order:publishCreate")
+    @RequiresPermissionsDesc(menu = {"商场管理", "上架"}, button = "上架")
+    @PostMapping("/publishCreate")
+    public Object publishCreate(@RequestBody String body) {
+        return adminOrderService.publishCreate(body);
+    }
 }

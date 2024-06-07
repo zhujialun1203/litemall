@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       activeIndex: Number(this.active),
-      tabTitles: ['全部', '待付款', '待发货', '待收货', '待评价'],
+      tabTitles: ['全部', '待付款', '待发货', '待收货', '待评价', '待上架', '已上架', '待收款', '已收款'],
       orderList: [],
       page: 0,
       limit: 10,

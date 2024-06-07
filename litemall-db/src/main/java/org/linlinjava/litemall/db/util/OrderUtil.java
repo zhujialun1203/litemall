@@ -31,7 +31,8 @@ public class OrderUtil {
     public static final Short STATUS_REFUND = 202;
     public static final Short STATUS_REFUND_CONFIRM = 203;
     public static final Short STATUS_AUTO_CONFIRM = 402;
-
+    public static final Short STATUS_PUBLISH_CREATE = 501;
+    public static final Short STATUS_PUBLISH = 502;
     public static String orderStatusText(LitemallOrder order) {
         int status = order.getOrderStatus().intValue();
 
@@ -75,6 +76,15 @@ public class OrderUtil {
             return "已收货(系统)";
         }
 
+        if (status == 501) {
+            return "待上架";
+        }
+
+        if (status == 502) {
+            return "已上架";
+        }
+
+
         throw new IllegalStateException("orderStatus不支持");
     }
 
@@ -108,6 +118,8 @@ public class OrderUtil {
             handleOption.setComment(true);
             handleOption.setRebuy(true);
             handleOption.setAftersale(true);
+        } else if (status == 501 || status == 502) {
+
         } else {
             throw new IllegalStateException("status不支持");
         }

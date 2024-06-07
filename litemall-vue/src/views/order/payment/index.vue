@@ -29,6 +29,12 @@
             </template>            
             <van-radio name="wx"/>
           </van-cell>
+               <van-cell>
+            <template slot="title">
+              <img src="../../../assets/images/wx_pay.png" alt="其他支付" width="113" height="23">
+            </template>            
+            <van-radio name="other"/>
+          </van-cell>
         </van-cell-group>
       </van-radio-group>
     </div>

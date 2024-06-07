@@ -4,13 +4,10 @@
       <van-search placeholder="点击前往搜索" />
       <div class="tal_class_searchMask" @click="$router.push({ name: 'search' })"></div>
     </div>
-    <!-- <div class="van-coupon-item"
-           v-for="(coupon,index) in shopInfos.couponList"
-           :key="index"
-           @click="getCoupon(coupon.id)"> -->
-    <div class="centered-text" style="color: black;">抢购</div>
+
+    <div class="centered-text" style="color: black;"  >抢购</div>
     <div class="van-coupon-item__content">
-      <span class="centered-text">进入抢购</span>
+      <span :disabled="isButtonDisabled" @click="toItemList(1005000)" class="centered-text">{{remainingTimeText}}</span>
     </div>
     <div style="color: #00bfff;  font-weight: bold; padding-left: 10px;">公告通知</div>
     <div class="van-coupon-item__content2">
@@ -65,16 +62,51 @@ import { Search } from 'vant';
 export default {
   data() {
     return {
+      isButtonDisabled: true, // 默认按钮不可用
+      remainingTime: 0, // 剩余时间，单位分钟
+      timer: null, // 定时器引用
+
       categoryList: [],
       shopInfos: [],
       currentCategory: {},
-      currentSubCategoryList: []
+      currentSubCategoryList: [],
+
+      startDate:new Date("10:00"),
+      endDate:new Date("11:00")
     };
+  },
+  computed: {
+    // 计算属性，判断当前时间是否在可用时间段内
+    isWithinOperatingHours() {
+      const now = new Date();
+      return this.startDate<= now <  this.endDate;
+    },
+    remainingTimeText() {
+      if (this.remainingTime > 0) {
+        const minutes = Math.floor(this.remainingTime / 60);
+        const seconds = this.remainingTime % 60;
+        return `剩余${minutes}:${seconds < 10 ? '0' + seconds : seconds}秒可点击`;
+      } else if (this.isButtonDisabled) {
+        return "不可点击";
+      } else {
+        return "点击";
+      }
+    },
   },
 
   created() {
     this.initData();
   },
+  mounted() {
+ // 页面加载时立即检查按钮状态
+    this.updateButtonStatus();
+    // 每秒检查一次，以应对时间变化
+    setInterval(this.updateButtonStatus, 1000);
+  },
+  beforeDestroy() {
+    if (this.timer) {
+      clearInterval(this.timer);
+  }},
 
   methods: {
     initData() {
@@ -115,6 +147,7 @@ export default {
         ]
       }
     },
+
     changeCatalog(id) {
       catalogCurrent({ id: id }).then(res => {
         let data = res.data.data;
@@ -123,12 +156,54 @@ export default {
       });
     },
     toItemList(id) {
+      if (this.isButtonDisabled) {
+        return; // 如果按钮处于禁用状态，则不执行点击逻辑
+      }
       this.$router.push({
-        name: 'category',
+        name: 'all',
         query: { keyword: '', itemClass: id }
       });
-    }
+    },
+
+    updateButtonStatus() {
+      if (this.isWithinOperatingHours) {
+        // 如果在可用时间段内
+        this.isButtonDisabled = false;
+        if (this.timer) {
+          clearInterval(this.timer); // 清除可能存在的倒计时
+        }
+      } else {
+         // 计算距离下一个可点击时间段的剩余时间（以秒为单位）
+        const now = new Date();
+        let nextStartHour = (now.getHours() >= this.endDate.getHours && now.getMinutes() > this.endDate.minutes) ? this.startDate.getHours : now.getHours();
+        const nextStartTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), nextStartHour, this.startDate.getMinutes, 0, 0);
+        if (nextStartTime < now) {
+          // 如果当前时间已经超过今天的目标时间段，设置为明天的9:50
+          nextStartTime.setDate(nextStartTime.getDate() + 1);
+        }
+        const timeUntilNextSlot = nextStartTime - now; // 距离下一个可用时间的毫秒数
+        this.remainingTime = Math.ceil(timeUntilNextSlot / 1000); // 转换为秒
+
+        if (this.remainingTime <= 60) {
+          // 开始倒计时，这里以1分钟为例，根据需要调整
+          this.startCountdown();
+        } else {
+          this.isButtonDisabled = true;
+        }
+      }
+    },
+    startCountdown() {
+       this.timer = setInterval(() => {
+        if (this.remainingTime <= 0) {
+          clearInterval(this.timer);
+          this.updateButtonStatus(); // 刷新状态，准备进入下一个可用时间段
+        } else {
+          this.remainingTime--;
+        }
+      }, 1000); // 每秒更新一次
+    },
   },
+ 
   components: {
     [Search.name]: Search
   }
@@ -144,7 +219,7 @@ export default {
   /* 文字内容居中 */
   font-weight: bold;
   /* 加粗 */
-  color: white;
+  color: black;
 }
 
 
@@ -184,7 +259,7 @@ export default {
   border-radius: 10px;
 
 
-  background-image: url('../../../public/resource/7582358408a9512592068a4dc25a92a7.jpg');
+  background-image: url('');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

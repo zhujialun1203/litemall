@@ -58,6 +58,13 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 		</dependency>
+
+        <!-- 二维码 ZXing -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.1</version> <!-- 请使用最新版本 -->
+        </dependency>
 		
 		<!--引入ui包-->
 		<dependency>

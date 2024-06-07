@@ -40,10 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.linlinjava.litemall.wx.util.WxResponseCode.*;
 
@@ -820,6 +818,38 @@ public class WxOrderService {
         taskService.removeTask(new OrderUnpaidTask(order.getId()));
 
         return WxPayNotifyResponse.success("处理成功!");
+    }
+
+    public Object publish(Integer userId, String body) {
+        if (userId == null) {
+            return ResponseUtil.unlogin();
+        }
+        Integer orderId = JacksonUtil.parseInteger(body, "orderId");
+        if (orderId == null) {
+            return ResponseUtil.badArgument();
+        }
+
+        LitemallOrder order = orderService.findById(userId, orderId);
+        if (order == null) {
+            return ResponseUtil.badArgument();
+        }
+        if (!order.getUserId().equals(userId)) {
+            return ResponseUtil.badArgumentValue();
+        }
+        order.setOrderStatus(OrderUtil.STATUS_PUBLISH);
+        if (orderService.updateWithOptimisticLocker(order) == 0) {
+            return ResponseUtil.updatedDateExpired();
+        }
+
+        List<LitemallOrderGoods> orderGoodsList = orderGoodsService.queryByOid(orderId);
+        for (LitemallOrderGoods orderGoods : orderGoodsList) {
+            Integer productId = orderGoods.getProductId();
+            Short number = orderGoods.getNumber();
+            if (productService.addStock(productId, number) == 0) {
+                throw new RuntimeException("商品货品库存增加失败");
+            }
+        }
+        return ResponseUtil.ok();
     }
 
     /**

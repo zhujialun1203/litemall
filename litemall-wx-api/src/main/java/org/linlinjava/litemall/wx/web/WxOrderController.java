@@ -131,6 +131,12 @@ public class WxOrderController {
         return wxOrderService.refund(userId, body);
     }
 
+
+    @PostMapping("publish")
+    public Object publish(@LoginUser Integer userId, @RequestBody String body) {
+        return wxOrderService.publish(userId, body);
+    }
+
     /**
      * 确认收货
      *
