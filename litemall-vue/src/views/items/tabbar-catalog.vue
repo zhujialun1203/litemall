@@ -7,7 +7,7 @@
 
     <div class="centered-text" style="color: black;"  >抢购</div>
     <div class="van-coupon-item__content">
-      <span :disabled="isButtonDisabled" @click="toItemList(1005000)" class="centered-text">{{remainingTimeText}}</span>
+      <span  @click="toItemList(1005000)" class="centered-text">{{remainingTimeText}}</span>
     </div>
     <div style="color: #00bfff;  font-weight: bold; padding-left: 10px;">公告通知</div>
     <div class="van-coupon-item__content2">
@@ -82,6 +82,7 @@ export default {
       return this.startDate<= now <  this.endDate;
     },
     remainingTimeText() {
+      return "进入抢购";
       if (this.remainingTime > 0) {
         const minutes = Math.floor(this.remainingTime / 60);
         const seconds = this.remainingTime % 60;
@@ -156,9 +157,9 @@ export default {
       });
     },
     toItemList(id) {
-      if (this.isButtonDisabled) {
-        return; // 如果按钮处于禁用状态，则不执行点击逻辑
-      }
+      // if (this.isButtonDisabled) {
+      //   return; // 如果按钮处于禁用状态，则不执行点击逻辑
+      // }
       this.$router.push({
         name: 'all',
         query: { keyword: '', itemClass: id }

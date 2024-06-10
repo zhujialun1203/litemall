@@ -1,7 +1,7 @@
 <template>
 <div class="backgroud-png">
     <div>
-        <img src="../../../public/resource/9205bef567620b27bb37f0d1cbb748b.jpg" stalt="二维码" style="height: 150px;">
+        <img src="../../../public/resource/1.jpg" stalt="二维码" style="height: 150px;">
     </div>
 </div>
 
@@ -225,7 +225,7 @@ export default {
 
 
 .backgroud-png {
-    background-image: url("../../../public/resource/20210722091937_99190.jpg");
+    background-image: url("../../../public/resource/1.jpg");
     background-size: cover;
     background-position: center;
     height: 100vh;

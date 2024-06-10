@@ -42,6 +42,12 @@ export default [
     props: route => route.query
   },
   {
+    path: '/items/all',
+    name: 'all',
+    component: () => import('@/views/items/all'),
+    props: route => route.query
+  },
+  {
     path: '/items/new',
     name: 'new',
     component: () => import('@/views/items/new'),
